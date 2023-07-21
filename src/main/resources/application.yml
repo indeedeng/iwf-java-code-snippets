@@ -1,0 +1,12 @@
+server:
+  port: 8803
+
+spring:
+  jackson:
+    default-property-inclusion: NON_NULL
+
+iwf:
+  worker:
+    url: http://localhost:8803/worker
+  server:
+    url: http://localhost:8801

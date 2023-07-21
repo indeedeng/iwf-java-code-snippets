@@ -1,0 +1,66 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '2.7.13'
+	id 'io.spring.dependency-management' version '1.1.2'
+	id 'com.diffplug.spotless' version "6.13.0"
+}
+
+group = 'io.workflow'
+version = '0.0.1-SNAPSHOT'
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	implementation "io.iworkflow:iwf-java-sdk:2.2.0"
+	implementation 'com.google.guava:guava:32.1.1-jre'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
+
+dependencyLocking {
+	lockAllConfigurations()
+}
+
+spotless {
+	def prettierPlugins = [
+			"prettier": "2.5.1",
+			"prettier-plugin-java": "1.6.1",
+	]
+
+	format 'misc', {
+		// define the files to apply `misc` to
+		target '*.gradle', '*.md', '.gitignore'
+
+		// define the steps to apply to those files
+		trimTrailingWhitespace()
+		indentWithTabs() // or spaces. Takes an integer argument if you don't like 4
+		endWithNewline()
+	}
+	java {
+		// Use the default importOrder configuration
+		importOrder()
+
+		removeUnusedImports()
+
+		prettier(prettierPlugins).config([
+				'parser': 'java',
+				'tabWidth': 4,
+				'printWidth': 120
+		])
+	}
+}
