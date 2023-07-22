@@ -7,5 +7,5 @@ If you are interested in exploring larger demos showcasing such combinations, pl
 Here is the list of currently available code snippets, and we are actively working on adding more to it.
 
 - [Interruptible Timer](src/main/java/io/workflow/workflow/interruptibletimer)
-- Implement a timer function to execute actions with delays.
-- Furthermore, this timer is interruptible, enabling the prevention of executing the planned actions when necessary.
+  - Implement a timer function to execute actions with delays.
+  - Furthermore, this timer is interruptible, enabling the prevention of executing the planned actions when necessary.
