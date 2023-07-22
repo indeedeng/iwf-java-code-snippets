@@ -1,4 +1,4 @@
-package io.workflow.workflow.longtermstorage;
+package io.workflow.workflow.conditionalstorage;
 
 import lombok.Builder;
 import lombok.Value;
@@ -7,7 +7,7 @@ import lombok.extern.jackson.Jacksonized;
 @Value
 @Builder
 @Jacksonized
-public class LongTermStorageInput {
+public class ConditionalStorageInput {
 
     public String storage;
 }

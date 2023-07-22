@@ -1,6 +1,6 @@
-package io.workflow.workflow.longtermstorage;
+package io.workflow.workflow.conditionalstorage;
 
-import static io.workflow.workflow.longtermstorage.LongTermStorageWorkflow.DATA_ATTRIBUTE_LONG_TERM_STORAGE;
+import static io.workflow.workflow.conditionalstorage.ConditionalStorageWorkflow.DATA_ATTRIBUTE_CONDITIONAL_STORAGE;
 
 import com.google.common.collect.ImmutableList;
 import io.iworkflow.core.Context;
@@ -19,9 +19,9 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 
 @Component
-public class LongTermStorageWorkflow implements ObjectWorkflow {
+public class ConditionalStorageWorkflow implements ObjectWorkflow {
 
-    public static final String DATA_ATTRIBUTE_LONG_TERM_STORAGE = "DATA_ATTRIBUTE_LONG_TERM_STORAGE";
+    public static final String DATA_ATTRIBUTE_CONDITIONAL_STORAGE = "DATA_ATTRIBUTE_CONDITIONAL_STORAGE";
 
     @Override
     public List<StateDef> getWorkflowStates() {
@@ -30,7 +30,7 @@ public class LongTermStorageWorkflow implements ObjectWorkflow {
 
     @Override
     public List<PersistenceFieldDef> getPersistenceSchema() {
-        return ImmutableList.of(DataAttributeDef.create(String.class, DATA_ATTRIBUTE_LONG_TERM_STORAGE));
+        return ImmutableList.of(DataAttributeDef.create(String.class, DATA_ATTRIBUTE_CONDITIONAL_STORAGE));
     }
 
     @RPC
@@ -40,26 +40,26 @@ public class LongTermStorageWorkflow implements ObjectWorkflow {
 
     @RPC
     public String getStorage(final Context context, final Persistence persistence, final Communication communication) {
-        return persistence.getDataAttribute(DATA_ATTRIBUTE_LONG_TERM_STORAGE, String.class);
+        return persistence.getDataAttribute(DATA_ATTRIBUTE_CONDITIONAL_STORAGE, String.class);
     }
 }
 
-class StartState implements WorkflowState<LongTermStorageInput> {
+class StartState implements WorkflowState<ConditionalStorageInput> {
 
     @Override
-    public Class<LongTermStorageInput> getInputType() {
-        return LongTermStorageInput.class;
+    public Class<ConditionalStorageInput> getInputType() {
+        return ConditionalStorageInput.class;
     }
 
     @Override
     public StateDecision execute(
         final Context context,
-        final LongTermStorageInput input,
+        final ConditionalStorageInput input,
         final CommandResults commandResults,
         final Persistence persistence,
         final Communication communication
     ) {
-        persistence.setDataAttribute(DATA_ATTRIBUTE_LONG_TERM_STORAGE, input.getStorage());
+        persistence.setDataAttribute(DATA_ATTRIBUTE_CONDITIONAL_STORAGE, input.getStorage());
         // The whole workflow continues running when the timeout is set to 0
         return StateDecision.deadEnd();
     }
@@ -80,7 +80,7 @@ class StopState implements WorkflowState<Void> {
         final Persistence persistence,
         final Communication communication
     ) {
-        persistence.setDataAttribute(DATA_ATTRIBUTE_LONG_TERM_STORAGE, "");
+        persistence.setDataAttribute(DATA_ATTRIBUTE_CONDITIONAL_STORAGE, "");
         return StateDecision.forceCompleteWorkflow();
     }
 }

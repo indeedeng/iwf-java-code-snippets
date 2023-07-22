@@ -36,7 +36,7 @@ public class TaskDependencyController {
 
         final Integer output = client.getSimpleWorkflowResultWithWait(Integer.class, workflowId);
 
-        return ResponseEntity.ok(String.format("The output of single depedency task %s: %d", taskId, output));
+        return ResponseEntity.ok(String.format("The output of single dependency task %s: %d", taskId, output));
     }
 
     @PostMapping("/multiple/start")
@@ -55,7 +55,7 @@ public class TaskDependencyController {
 
         final Integer output = client.getSimpleWorkflowResultWithWait(Integer.class, workflowId);
 
-        return ResponseEntity.ok(String.format("The output of multiple depedency task %s: %d", taskId, output));
+        return ResponseEntity.ok(String.format("The output of multiple dependency task %s: %d", taskId, output));
     }
 
     private String getWorkflowId(final String taskId, final boolean isSingleDependency) {

@@ -3,8 +3,8 @@ package io.workflow.controller;
 import io.iworkflow.core.Client;
 import io.iworkflow.core.ClientSideException;
 import io.iworkflow.gen.models.ErrorSubStatus;
-import io.workflow.workflow.longtermstorage.LongTermStorageInput;
-import io.workflow.workflow.longtermstorage.LongTermStorageWorkflow;
+import io.workflow.workflow.conditionalstorage.ConditionalStorageInput;
+import io.workflow.workflow.conditionalstorage.ConditionalStorageWorkflow;
 import java.util.Map;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/storage")
 @AllArgsConstructor
-public class LongTermStorageWorkflowController {
+public class ConditionalStorageWorkflowController {
 
     private final Client client;
 
@@ -27,13 +27,13 @@ public class LongTermStorageWorkflowController {
         final String id = requestBody.get("id");
         final String storage = requestBody.get("storage");
 
-        final String workflowId = LongTermStorageWorkflowController.getStorageWorkflowId(id);
+        final String workflowId = ConditionalStorageWorkflowController.getStorageWorkflowId(id);
 
-        final LongTermStorageInput input = LongTermStorageInput.builder().storage(storage).build();
+        final ConditionalStorageInput input = ConditionalStorageInput.builder().storage(storage).build();
 
         try {
             // The timeout is set to 0, indicating that the workflow will never time out
-            client.startWorkflow(LongTermStorageWorkflow.class, workflowId, 0, input);
+            client.startWorkflow(ConditionalStorageWorkflow.class, workflowId, 0, input);
         } catch (final ClientSideException e) {
             if (e.getErrorSubStatus() == ErrorSubStatus.WORKFLOW_ALREADY_STARTED_SUB_STATUS) {
                 return ResponseEntity.ok(String.format("The workflow %s has been running.", workflowId));
@@ -46,9 +46,9 @@ public class LongTermStorageWorkflowController {
 
     @GetMapping("/get")
     public ResponseEntity<String> getStorage(final @RequestParam(defaultValue = "id") String id) {
-        final String workflowId = LongTermStorageWorkflowController.getStorageWorkflowId(id);
+        final String workflowId = ConditionalStorageWorkflowController.getStorageWorkflowId(id);
 
-        final LongTermStorageWorkflow rpcStub = client.newRpcStub(LongTermStorageWorkflow.class, workflowId, "");
+        final ConditionalStorageWorkflow rpcStub = client.newRpcStub(ConditionalStorageWorkflow.class, workflowId, "");
 
         try {
             final String storage = client.invokeRPC(rpcStub::getStorage);
@@ -65,9 +65,9 @@ public class LongTermStorageWorkflowController {
     public ResponseEntity<String> stopStore(final @RequestBody Map<String, String> requestBody) {
         final String id = requestBody.get("id");
 
-        final String workflowId = LongTermStorageWorkflowController.getStorageWorkflowId(id);
+        final String workflowId = ConditionalStorageWorkflowController.getStorageWorkflowId(id);
 
-        final LongTermStorageWorkflow rpcStub = client.newRpcStub(LongTermStorageWorkflow.class, workflowId, "");
+        final ConditionalStorageWorkflow rpcStub = client.newRpcStub(ConditionalStorageWorkflow.class, workflowId, "");
 
         try {
             client.invokeRPC(rpcStub::stop);
@@ -82,6 +82,6 @@ public class LongTermStorageWorkflowController {
     }
 
     public static String getStorageWorkflowId(final String id) {
-        return "long_term_storage_" + id;
+        return "conditional_storage_" + id;
     }
 }
