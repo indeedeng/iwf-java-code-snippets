@@ -6,7 +6,7 @@ My team needs to implement a **TIMER** function to execute actions with delays.
 Furthermore, we have an additional request: we would like this timer to be interruptible, enabling the prevention of executing the planned actions when necessary.
 - E.g., we should be able to cancel the email sending plan if users have already experienced the basic feature within the 1-hour timeframe.
 
-![interruptibletimer.png](../../../../../resources/pics/interruptibletimer.png)
+![interruptible_timer.png](../../../../../resources/pics/interruptible_timer.png)
 
 # iWF implementation estimation
 
