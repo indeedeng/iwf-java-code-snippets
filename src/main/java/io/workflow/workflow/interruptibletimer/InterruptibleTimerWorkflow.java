@@ -51,7 +51,7 @@ class TimerState implements WorkflowState<Void> {
         final Communication communication
     ) {
         return CommandRequest.forAnyCommandCompleted(
-            TimerCommand.createByDuration(Duration.ofMinutes(1)),
+            TimerCommand.createByDuration(Duration.ofMinutes(1)), // set the timer to 1 minute for easy testing
             SignalCommand.create(InterruptibleTimerWorkflow.SIGNAL_INTERRUPT_TIMER)
         );
     }
@@ -72,7 +72,9 @@ class TimerState implements WorkflowState<Void> {
             return StateDecision.forceCompleteWorkflow();
         }
 
+        // Do the planned actions here
         System.out.println("Start executing scheduled/tasked job!");
+
         return StateDecision.forceCompleteWorkflow();
     }
 }
