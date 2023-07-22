@@ -3,7 +3,7 @@ package io.workflow.controller;
 import io.iworkflow.core.Client;
 import io.iworkflow.core.ClientSideException;
 import io.iworkflow.gen.models.ErrorSubStatus;
-import io.workflow.workflow.InterruptibleTimerWorkflow;
+import io.workflow.workflow.interruptibletimer.InterruptibleTimerWorkflow;
 import java.util.Map;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;

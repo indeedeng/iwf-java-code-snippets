@@ -1,4 +1,4 @@
-package io.workflow.workflow;
+package io.workflow.workflow.interruptibletimer;
 
 import com.google.common.collect.ImmutableList;
 import io.iworkflow.core.Context;
