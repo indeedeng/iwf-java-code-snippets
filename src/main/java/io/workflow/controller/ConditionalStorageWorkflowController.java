@@ -48,7 +48,7 @@ public class ConditionalStorageWorkflowController {
     public ResponseEntity<String> getStorage(final @RequestParam(defaultValue = "id") String id) {
         final String workflowId = ConditionalStorageWorkflowController.getStorageWorkflowId(id);
 
-        final ConditionalStorageWorkflow rpcStub = client.newRpcStub(ConditionalStorageWorkflow.class, workflowId, "");
+        final ConditionalStorageWorkflow rpcStub = client.newRpcStub(ConditionalStorageWorkflow.class, workflowId);
 
         try {
             final String storage = client.invokeRPC(rpcStub::getStorage);
@@ -67,7 +67,7 @@ public class ConditionalStorageWorkflowController {
 
         final String workflowId = ConditionalStorageWorkflowController.getStorageWorkflowId(id);
 
-        final ConditionalStorageWorkflow rpcStub = client.newRpcStub(ConditionalStorageWorkflow.class, workflowId, "");
+        final ConditionalStorageWorkflow rpcStub = client.newRpcStub(ConditionalStorageWorkflow.class, workflowId);
 
         try {
             client.invokeRPC(rpcStub::stop);
