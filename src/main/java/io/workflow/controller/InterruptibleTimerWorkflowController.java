@@ -45,7 +45,6 @@ public class InterruptibleTimerWorkflowController {
             client.signalWorkflow(
                 InterruptibleTimerWorkflow.class,
                 workflowId,
-                "",
                 InterruptibleTimerWorkflow.SIGNAL_INTERRUPT_TIMER,
                 null
             );

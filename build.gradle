@@ -24,7 +24,7 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
-	implementation "io.iworkflow:iwf-java-sdk:2.2.0"
+	implementation "io.iworkflow:iwf-java-sdk:2.3.0"
 	implementation 'com.google.guava:guava:32.1.1-jre'
 }
 
